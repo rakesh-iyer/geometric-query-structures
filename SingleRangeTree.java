@@ -27,8 +27,8 @@ class SingleRangeTree {
             node.left = construct(arr, start, mid);
             node.right = construct(arr, mid+1, end);
         }
-        
-        return node; 
+
+        return node;
     }
 
     List<Integer> subtree(Node n) {
@@ -72,7 +72,7 @@ class SingleRangeTree {
         }
 
         // n is the split node.
-        Node p = n.left; 
+        Node p = n.left;
 
         // go trace to start and output right subtree whenever you gp left.
         while (!p.isLeaf()) {
@@ -115,6 +115,6 @@ class SingleRangeTree {
 
         for (int i : l) {
             System.out.println(i);
-        }    
+        }
     }
-} 
+}
