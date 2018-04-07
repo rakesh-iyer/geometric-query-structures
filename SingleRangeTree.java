@@ -2,7 +2,7 @@ import java.util.*;
 
 //only supports integer keys at this moment.
 class SingleRangeTree {
-    Node n;
+    Node node;
 
     static class KeyValue {
         int key;
@@ -24,7 +24,7 @@ class SingleRangeTree {
     }
 
     SingleRangeTree(KeyValue arr[]) {
-        n = construct(arr, 0, arr.length-1);
+        node = construct(arr, 0, arr.length-1);
     }
 
     Node construct(KeyValue arr[], int start, int end) {
@@ -56,35 +56,35 @@ class SingleRangeTree {
         if (n == null) {
             return;
         }
-        subtree(n.left, l);
-        if (n.isLeaf()) {
-            l.add(n.keyValue);
+        subtree(node.left, l);
+        if (node.isLeaf()) {
+            l.add(node.keyValue);
         }
 
-        subtree(n.right, l);
+        subtree(node.right, l);
     }
 
     List<KeyValue> query(int start, int end) {
         List<KeyValue> list = new ArrayList<>();
 
         // traverse both start and end until, they split.
-        while (!(n.isLeaf() || (n.keyValue.key >= start && n.keyValue.key < end))) {
-            if (n.keyValue.key >= start) {
-                n = n.left;
+        while (!(node.isLeaf() || (node.keyValue.key >= start && node.keyValue.key < end))) {
+            if (node.keyValue.key >= start) {
+                node = node.left;
             } else {
-                n = n.right;
+                node = node.right;
             }
         }
 
-        if (n.isLeaf()) {
-            if (n.keyValue.key >= start && n.keyValue.key <= end) {
-                list.add(n.keyValue);
+        if (node.isLeaf()) {
+            if (node.keyValue.key >= start && node.keyValue.key <= end) {
+                list.add(node.keyValue);
             }
             return list;
         }
 
         // n is the split node.
-        Node p = n.left;
+        Node p = node.left;
 
         // go trace to start and output right subtree whenever you gp left.
         while (!p.isLeaf()) {
@@ -100,7 +100,7 @@ class SingleRangeTree {
             list.add(p.keyValue);
         }
 
-        p = n.right;
+        p = node.right;
 
         while (!p.isLeaf()) {
             if (p.keyValue.key < end) {
